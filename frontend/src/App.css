@@ -1,0 +1,231 @@
+.app {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.app h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  color: var(--color-muted);
+  margin: 0 0 2.5rem;
+  font-size: 1rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tagline {
+    color: var(--color-thistle);
+    opacity: 0.95;
+  }
+}
+
+.shorten-form-slot {
+  width: 100%;
+  height: 9.5rem;
+}
+
+.shorten-form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.shorten-form form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 480px) {
+  .shorten-form form {
+    flex-direction: column;
+  }
+
+  .shorten-form button[type="submit"] {
+    width: 100%;
+  }
+}
+
+.shorten-form input {
+  flex: 1;
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  transition: border-color 0.15s;
+}
+
+.shorten-form input:focus,
+.shorten-form input:focus-visible {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-alpha);
+}
+
+.shorten-form input::placeholder {
+  color: var(--color-muted);
+}
+
+.shorten-form button[type="submit"] {
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-accent);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.shorten-form button[type="submit"]:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+}
+
+.shorten-form button[type="submit"]:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.shorten-form button[type="submit"]:focus-visible,
+.copy-btn:focus-visible,
+.shorten-another:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.shorten-form .error {
+  color: var(--color-error);
+  font-size: 0.9rem;
+  margin: 0 0 1rem;
+}
+
+.shorten-form .result {
+  padding: 1.25rem;
+  background: var(--color-surface);
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  flex: 1;
+  min-height: 0;
+}
+
+.shorten-form .result label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-on-surface);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.short-url-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.short-url-output {
+  flex: 1;
+  min-width: 0;
+}
+
+.short-url-output a {
+  color: var(--color-accent-light);
+  text-decoration: none;
+  font-size: 0.95rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.short-url-output a:hover {
+  text-decoration: underline;
+}
+
+.copy-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-accent);
+  color: #fff;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.copy-btn:hover:not(.copied) {
+  background: var(--color-accent-hover);
+}
+
+.copy-btn.copied {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+.shorten-another {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-on-surface);
+  cursor: pointer;
+  transition: color 0.15s, opacity 0.15s;
+}
+
+.shorten-another:hover {
+  color: var(--color-accent);
+}
+
+@keyframes result-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.shorten-form .result {
+  animation: result-in 0.25s ease-out;
+}
+
+.result--loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 0;
+}
+
+.loading-text {
+  margin: 0;
+  color: var(--color-on-surface);
+  font-size: 1rem;
+}

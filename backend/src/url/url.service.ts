@@ -54,7 +54,11 @@ export class UrlService {
       .prepare("INSERT INTO urls (short_code, original_url) VALUES (?, ?)")
       .run(shortCode, url);
 
-    const baseUrl = process.env.BASE_URL || "http://localhost:3000";
+    const baseUrl =
+      process.env.BASE_URL ||
+      (process.env.RAILWAY_PUBLIC_DOMAIN
+        ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`
+        : "http://localhost:3000");
     const shortUrl = `${baseUrl.replace(/\/$/, "")}/${shortCode}`;
 
     return { shortUrl, shortCode };

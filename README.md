@@ -61,7 +61,7 @@ cd frontend && npm run dev
 ## Assumptions & Shortcuts
 
 - SQLite for simplicity; no auth, no analytics.
-- Short URLs use `http://localhost:3000` as base. Set `BASE_URL` env var to override.
+- Short URLs use `http://localhost:3000` locally. On Railway, `RAILWAY_PUBLIC_DOMAIN` is used automatically; set `BASE_URL` only to override.
 - URL validation rejects non-http(s) schemes (e.g. `javascript:`, `data:`).
 - CORS allowed for `http://localhost:5173` during development; set `CORS_ORIGIN` for production.
 

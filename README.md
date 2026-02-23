@@ -22,7 +22,7 @@ cd backend && npm install
 cd ../frontend && npm install
 ```
 
-2. Start the application:
+1. Start the application:
 
 ```bash
 npm run dev
@@ -40,40 +40,22 @@ cd backend && npm run dev
 cd frontend && npm run dev
 ```
 
-## Troubleshooting
-
-**Port 3000 already in use**
-
-If the backend fails with `EADDRINUSE: address already in use :::3000`, a previous instance is still running. Free the port:
-
-```bash
-lsof -i :3000   # find the PID
-kill <PID>      # replace <PID> with the number from the output
-```
-
-**Frontend type errors**
-
-If `tsconfig.app.json` or `tsconfig.node.json` report missing type definitions, ensure dependencies are installed:
-
-```bash
-cd frontend && npm install
-```
-
 ## Technical Choices
 
-| Area | Choice | Rationale |
-|------|--------|-----------|
-| Backend | NestJS + TypeScript | Structured, modular, production-ready. |
-| Database | SQLite | Zero setup for local dev; single file, easy to run. |
-| Frontend | Vite + React + TypeScript | Fast, modern, excellent TS support. |
-| Short code | 6-char alphanumeric | ~2B combinations, collision-resistant. |
+
+| Area       | Choice                    | Rationale                                           |
+| ---------- | ------------------------- | --------------------------------------------------- |
+| Backend    | NestJS + TypeScript       | Structured, modular, well-documented                |
+| Database   | SQLite                    | Zero setup for local dev; single file, easy to run. |
+| Frontend   | Vite + React + TypeScript | Fast, modern, excellent TS support.                 |
+| Short code | 6-char alphanumeric       | ~2B combinations, collision-resistant.              |
+
 
 ## API
 
 - **POST** `/api/shorten` — Shorten a URL  
   - Body: `{ "url": "https://example.com/long-path" }`  
   - Returns: `{ "shortUrl": "http://localhost:3000/ABC123", "shortCode": "ABC123" }`
-
 - **GET** `/:shortCode` — Redirects to the original URL (302)
 
 ## Assumptions & Shortcuts
@@ -81,4 +63,5 @@ cd frontend && npm install
 - SQLite for simplicity; no auth, no analytics.
 - Short URLs use `http://localhost:3000` as base. Set `BASE_URL` env var to override.
 - URL validation rejects non-http(s) schemes (e.g. `javascript:`, `data:`).
-- CORS allowed for `http://localhost:5173` during development.
+- CORS allowed for `http://localhost:5173` during development; set `CORS_ORIGIN` for production.
+

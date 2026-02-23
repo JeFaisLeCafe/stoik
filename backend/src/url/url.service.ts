@@ -7,6 +7,15 @@ const CODE_LENGTH = 6;
 const MAX_RETRIES = 5;
 const ALLOWED_PROTOCOLS = ["http:", "https:"];
 
+const LEET_STOIK: Record<string, string[]> = {
+  s: ["5", "$", "s", "§"],
+  t: ["t", "7", "τ"],
+  o: ["0", "o", "ø", "ô", "ó", "ò", "õ", "ö"],
+  i: ["1", "i", "ì", "í", "î", "ï"],
+  k: ["k", "κ"],
+};
+const LEET_SUFFIX = ["!", "@", "*", "•"];
+
 @Injectable()
 export class UrlService {
   constructor(private readonly db: DatabaseService) {}
@@ -30,12 +39,24 @@ export class UrlService {
     return code;
   }
 
-  shorten(url: string): { shortUrl: string; shortCode: string } {
+  private generateStoikCode(): string {
+    const base = "stoik";
+    let code = "";
+    for (const char of base) {
+      const options = LEET_STOIK[char] || [char];
+      code += options[Math.floor(Math.random() * options.length)];
+    }
+    code += LEET_SUFFIX[Math.floor(Math.random() * LEET_SUFFIX.length)];
+    return code;
+  }
+
+  shorten(url: string, easterEgg = false): { shortUrl: string; shortCode: string } {
     const database = this.db.getDb();
     let shortCode: string | null = null;
 
+    const generate = easterEgg ? () => this.generateStoikCode() : () => this.generateShortCode();
     for (let i = 0; i < MAX_RETRIES; i++) {
-      const candidate = this.generateShortCode();
+      const candidate = generate();
       const exists = database
         .prepare("SELECT 1 FROM urls WHERE short_code = ? LIMIT 1")
         .get(candidate);

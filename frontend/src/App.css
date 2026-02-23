@@ -1,3 +1,60 @@
+:root {
+  font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Palette: Shadow Grey, Vintage Grape, Lilac Ash, Thistle, Sapphire Sky */
+  --color-shadow-grey: #1b1725;
+  --color-vintage-grape: #534b62;
+  --color-lilac-ash: #a499b3;
+  --color-thistle: #d0bcd5;
+  --color-sapphire-sky: #226ce0;
+
+  --color-text: #d0bcd5;
+  --color-muted: #a499b3;
+  --color-bg: #1b1725;
+  --color-surface: #534b62;
+  --color-border: #534b62;
+  --color-accent: #226ce0;
+  --color-accent-hover: #3d7ff0;
+  --color-accent-light: #7eb8ff;
+  --color-accent-alpha: rgba(34, 108, 224, 0.25);
+  --color-error: #e74c3c;
+  --color-on-surface: #d0bcd5;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-text: #1b1725;
+    --color-muted: #534b62;
+    --color-bg: #f5f0f8;
+    --color-surface: #ffffff;
+    --color-border: #d0bcd5;
+    --color-accent: #226ce0;
+    --color-accent-hover: #1a5bc4;
+    --color-accent-light: #1a5bc4;
+    --color-accent-alpha: rgba(34, 108, 224, 0.15);
+    --color-error: #c0392b;
+    --color-on-surface: #1b1725;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
 .app {
   max-width: 560px;
   margin: 0 auto;
@@ -7,6 +64,19 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+
+.easter-egg-logo {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: 80px;
+  height: auto;
+  transform: rotate(-8deg);
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .app h1 {
@@ -122,6 +192,7 @@
   border: 1px solid var(--color-border);
   flex: 1;
   min-height: 0;
+  animation: result-in 0.25s ease-out;
 }
 
 .shorten-form .result label {
@@ -210,10 +281,6 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.shorten-form .result {
-  animation: result-in 0.25s ease-out;
 }
 
 .result--loading {

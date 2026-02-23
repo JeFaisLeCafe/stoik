@@ -1,6 +1,14 @@
 import { useState } from "react";
 
-const API_BASE = import.meta.env.VITE_API_URL || "";
+function getApiBase(): string {
+  const url = import.meta.env.VITE_API_URL || "";
+  if (!url) return "";
+  if (!url.startsWith("http://") && !url.startsWith("https://")) {
+    return `https://${url.replace(/^\/+/, "")}`;
+  }
+  return url.replace(/\/+$/, "");
+}
+const API_BASE = getApiBase();
 
 function isValidUrl(url: string): boolean {
   try {
@@ -11,7 +19,11 @@ function isValidUrl(url: string): boolean {
   }
 }
 
-export function ShortenForm() {
+interface ShortenFormProps {
+  isEasterEgg?: boolean;
+}
+
+export function ShortenForm({ isEasterEgg = false }: ShortenFormProps) {
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -35,9 +47,14 @@ export function ShortenForm() {
 
     setLoading(true);
     try {
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
+      if (isEasterEgg) headers["X-Easter-Egg"] = "true";
+
       const res = await fetch(`${API_BASE}/api/shorten`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({ url: trimmed }),
       });
 

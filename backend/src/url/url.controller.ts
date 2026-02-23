@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Get,
+  Headers,
   HttpCode,
   HttpStatus,
   Param,
@@ -20,7 +21,11 @@ export class UrlController {
 
   @Post("api/shorten")
   @HttpCode(HttpStatus.CREATED)
-  shorten(@Body() dto: ShortenDto) {
+  shorten(
+    @Body() dto: ShortenDto,
+    @Headers("x-easter-egg") easterEggHeader?: string,
+  ) {
+    const easterEgg = easterEggHeader?.toLowerCase() === "true";
     const url = dto?.url;
     if (!url || typeof url !== "string") {
       throw new BadRequestException("Missing or invalid url");
@@ -32,7 +37,7 @@ export class UrlController {
     }
 
     try {
-      return this.urlService.shorten(trimmed);
+      return this.urlService.shorten(trimmed, easterEgg);
     } catch {
       throw new ServiceUnavailableException(
         "Could not generate unique short code"

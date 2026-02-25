@@ -1,7 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 
-async function bootstrap() {
+async function main() {
   const app = await NestFactory.create(AppModule);
   const corsOrigin =
     process.env.CORS_ORIGIN || "http://localhost:5173";
@@ -13,4 +13,4 @@ async function bootstrap() {
   console.log(`Server running at http://localhost:${port}`);
 }
 
-bootstrap();
+main();

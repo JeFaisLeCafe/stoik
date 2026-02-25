@@ -61,7 +61,6 @@ cd frontend && npm run dev
 ## Assumptions & Shortcuts
 
 - SQLite for simplicity; no auth, no analytics.
-- Short URLs use `http://localhost:3000` locally. On Railway, `RAILWAY_PUBLIC_DOMAIN` is used automatically; set `BASE_URL` only to override.
 - URL validation rejects non-http(s) schemes (e.g. `javascript:`, `data:`).
-- CORS allowed for `http://localhost:5173` during development; set `CORS_ORIGIN` for production.
+- The unique URL mini-code is only 6 alphanums long. That's around 2B possibility, enough for a demo, probably not for a full-scale app.
 
